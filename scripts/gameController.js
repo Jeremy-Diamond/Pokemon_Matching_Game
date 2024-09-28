@@ -8,6 +8,7 @@ let pokemonObjectList = [];
 let difficulty = '';
 
 
+
 document .querySelector('.score').textContent = score;
 //ask the user how hard they want the game to be using 4 buttons with event listeners
 
@@ -98,22 +99,48 @@ function shuffle(array){
 
 //function to flip the cards
 
-function flipCard(){
-    if(lockBoard) return;
-    if(this === firstCard) return;
+function flipCard() {
+    if (lockBoard) return;
+    if (this === firstCard) return;
 
-    this.classList.add('flip')
-
-    if(!firstCard){
+    // Flip the first card immediately
+    if (!firstCard) {
         firstCard = this;
+        anime({
+            targets: firstCard,
+            rotateY: '180deg',
+            backgroundColor: ['#FFF', '#FFC107'], // Change color to yellow on flip
+            duration: 800,
+            easing: 'easeInOutQuad',
+            complete: () => {
+                firstCard.classList.add('flip');
+            }
+        });
         return;
     }
+
+    // Flip the second card
     secondCard = this;
-    score++;
-    document.querySelector('.score').textContent = score;
-    lockBoard = true;
-    checkForMatch();
+    lockBoard = true;  // Prevent further clicking until match check is done
+    anime({
+        targets: secondCard,
+        rotateY: '180deg',
+        backgroundColor: ['#FFF', '#FFC107'],
+        duration: 800,
+        easing: 'easeInOutQuad',
+        complete: () => {
+            secondCard.classList.add('flip');
+            score++;
+            document.querySelector('.score').textContent = score;
+            //
+            //add delay before checking for match
+            setTimeout(() => {
+                checkForMatch();
+            }, 1000);
+        }
+    });
 }
+
 
 //function to check if the cards match
 function checkForMatch(){
@@ -122,25 +149,49 @@ function checkForMatch(){
 }
 
 //function to disable the cards if they match
-function disableCards(){
-    firstCard.removeEventListener('click', flipCard)
-    secondCard.removeEventListener('click', flipCard)
-    matches++;
-    document.querySelector('.matches').textContent = matches;
-    if(matches === cardCount){
-        alert('You win!')
-    }
-    resetBoard();
+function disableCards() {
+    anime({
+        targets: [firstCard, secondCard],
+        scale: [1, 1.4, 1],  // Scale up and back down to make it pop
+        backgroundColor: ['#FFC107', '#8BC34A'],  // Change color to green on match
+        duration: 1200,
+        easing: 'easeOutElastic(1, .8)',
+        complete: () => {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            matches++;
+            document.querySelector('.matches').textContent = matches;
+            if (matches === cardCount) {
+                youWin();
+            }
+            resetBoard();
+        }
+    });
 }
 
+
 //function to unflip the cards if they do not match
-function unflipCards(){
-    setTimeout(() => {
-        firstCard.classList.remove('flip');
-        secondCard.classList.remove('flip');
-        resetBoard();
-    }, 1500)
+function unflipCards() {
+    anime({
+        targets: [firstCard, secondCard],
+        translateX: [
+            { value: -10, duration: 100 },
+            { value: 10, duration: 100 },
+            { value: -10, duration: 100 },
+            { value: 10, duration: 100 },
+            { value: 0, duration: 100 }
+        ],
+        rotateY: '0deg',  // Flip back to original
+        duration: 1000,
+        easing: 'easeInOutQuad',
+        complete: () => {
+            firstCard.classList.remove('flip');
+            secondCard.classList.remove('flip');
+            resetBoard();
+        }
+    });
 }
+
 
 //function to reset the board
 
@@ -161,4 +212,106 @@ function restart(){
     document.querySelector('.matches').textContent = matches;
     createGame(difficulty)
 }
+
+
+// you win function that showes uses anime.js to animate the win message in a modal
+function youWin() {
+    // Create modal container for the win message
+    const modal = document.createElement('div');
+    modal.classList.add('modal');
+    modal.innerHTML = `
+    <div class="modal-content">
+        <h2>You Win!</h2>
+        <button id="playAgainButton">Play Again</button>
+    </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Make the modal content pop in with scale, bounce, and rotation
+    anime({
+        targets: '.modal-content',
+        scale: [0.5, 1.5, 1],
+        rotate: ['0turn', '2turn'],  // Double rotation
+        opacity: [0, 1],
+        duration: 1200,
+        easing: 'easeOutBounce',  // Bounce effect for extra "pop"
+    });
+
+    // Add confetti effect by animating the h2 element with background changes and jitter
+    anime({
+        targets: '.modal-content h2',
+        keyframes: [
+            { translateY: -40 },
+            { translateY: 40 },
+            { translateY: 0 }
+        ],
+        backgroundColor: ['#FF69B4', '#FFD700', '#FF4500', '#00FF7F'], // Flashy color changes
+        color: ['#FFF', '#000'],
+        borderRadius: ['0%', '50%'],  // Circle and back
+        duration: 1500,
+        easing: 'easeInOutQuad',
+        loop: true
+    });
+
+    // Button wobble animation to make the play again button fun
+    anime({
+        targets: '.modal-content button',
+        scale: [1, 1.3, 1],
+        rotate: ['0deg', '15deg', '-15deg', '0deg'],  // Wobble effect
+        duration: 2000,
+        easing: 'easeInOutElastic(1, .8)',
+        loop: true,  // Continuous loop to keep the button lively
+    });
+
+    // Adding an explosion of confetti across the screen
+    const confettiContainer = document.createElement('div');
+    confettiContainer.classList.add('confetti-container');
+    document.body.appendChild(confettiContainer);
+
+    // Create a lot of confetti pieces for the explosion effect
+    for (let i = 0; i < 100; i++) {
+        let confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confettiContainer.appendChild(confetti);
+
+        anime({
+            targets: confetti,
+            translateX: [0, Math.random() * window.innerWidth - window.innerWidth / 2],  // Random x translation
+            translateY: [0, Math.random() * window.innerHeight],  // Random y translation
+            rotate: Math.random() * 360,  // Random spin
+            scale: [0.5, 1],  // Confetti scaling effect
+            duration: 2000 + Math.random() * 1000,  // Randomized duration for variety
+            easing: 'easeOutQuad',
+            complete: () => confetti.remove()  // Remove the confetti piece after animation
+        });
+    }
+
+    // Flash the background in different colors
+    anime({
+        targets: 'body',
+        backgroundColor: ['#FFF', '#FF69B4', '#FFD700', '#00FF7F', '#1E90FF'], // Color flash
+        duration: 3000,
+        easing: 'easeInOutSine',
+        direction: 'alternate',
+        loop: 3
+    });
+
+    // Make the modal pulse after everything settles down
+    anime({
+        targets: '.modal',
+        scale: [1, 1.1, 1],
+        duration: 1500,
+        easing: 'easeInOutSine',
+        loop: true  // Pulses for a subtle post-win effect
+    });
+
+    // Add the event listener to refresh the browser when "Play Again" is clicked
+    document.getElementById('playAgainButton').addEventListener('click', () => {
+        location.reload(); // Refresh the page when Play Again is clicked
+    });
+}
+
+
+
+
 

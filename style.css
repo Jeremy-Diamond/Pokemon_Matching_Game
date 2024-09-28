@@ -122,3 +122,54 @@ p{
     background-size: center;
     backface-visibility: hidden;
 }
+
+
+.modal-content button {
+    background-color: #FF69B4; /* Bright pink */
+    color: #FFF;
+    font-size: 20px;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5); /* Glow shadow */
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Smooth transitions */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+/* Hover effect to make it pop more */
+.modal-content button:hover {
+    background-color: #FF1493; /* Darker pink */
+    transform: scale(1.1); /* Slightly bigger on hover */
+    box-shadow: 0 6px 30px rgba(255, 20, 147, 0.7); /* Stronger shadow on hover */
+}
+
+/* Active state when clicking the button */
+.modal-content button:active {
+    transform: scale(1.05); /* Slight shrink on click */
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.5); /* Softer shadow on click */
+}
+
+/* Add a pulsing animation to make it even more eye-catching */
+@keyframes buttonPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);
+    }
+    50% {
+        transform: scale(1.15);
+        box-shadow: 0 6px 30px rgba(255, 105, 180, 0.7);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 20px rgba(255, 105, 180, 0.5);
+    }
+}
+
+/* Apply the pulsing animation */
+.modal-content button {
+    animation: buttonPulse 2s infinite ease-in-out;
+}

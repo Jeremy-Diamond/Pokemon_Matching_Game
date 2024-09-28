@@ -1,12 +1,10 @@
 # Overview
 
-{Important! Do not say in this section that this is college assignment. Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This is a simple memory card game that lets you chose your difficulty level and then creates a matching game of pokemon cards for you to play with. 
 
-{Provide a description of the software that you wrote to demonstrate the JavaScript language.}
+I created this game because I wanted to learn more about JavaScript and how to use it to create a game. I decided to create this memory card game because I have a few children that love Pokemon, so I can refresh my JS skills and they get a new game to play!. 
 
-{Describe your purpose for writing this software.}
-
-{Provide a link to your YouTube demonstration. It should be a 4-5 minute demo of the software running and a walkthrough of the code. Focus should be on sharing what you learned about the language syntax.}
+The game is created using HTML, CSS, and JavaScript. The game uses the Pokemon API to get the images and names of the Pokemon. The game uses CSS Grid to create the layout of the game. The game uses JavaScript to create the game logic. The game is hosted on GitHub pages.
 
 [Software Demo Video](http://youtube.link.goes.here)
 [Try it out](https://sahil-rajput.github.io/JavaScript-Grid-Layout/)
@@ -17,6 +15,7 @@ I used Visual Studio Code as my text editor. I used GitHub as my repository and 
 
 Languages used were HTML, CSS, and JavaScript. 
 
+Libraries used were anime.js and the Pokemon API.
 
 # Useful Websites
 
@@ -31,13 +30,12 @@ Languages used were HTML, CSS, and JavaScript.
 - [coolors](https://coolors.co/)
 - [Google Fonts](https://fonts.google.com/)
 - [pattern monster](https://pattern.monster/)
-
+- [Pokemon API](https://pokeapi.co/)
+- [animme.js](https://animejs.com/documentation/)
 
 # Future Work
-
-- Fix the bug where the reset button does not work.
-- Create a better "You Win" experiace.
-- Allow game restart on win screen.
 - Add a timer to the game.
-- Make the cards look better.
+- Hide score counter until board is generated
 - Replace a pokemon that has a missing image with a different pokemon. The API is pretty good, but some images are missing.
+- speed up card transitin animation so the game plays faster
+- i put time into the "you win colors and automation, but the initial game board is still the same. I would like to make the game board more dynamic and interesting.
