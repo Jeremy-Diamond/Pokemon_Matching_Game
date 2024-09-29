@@ -1,13 +1,14 @@
 # Overview
 
-This is a simple memory card game that lets you chose your difficulty level and then creates a matching game of pokemon cards for you to play with. 
+This is a simple memory card game that lets you choose your difficulty level and then creates a matching game of Pokémon cards for you to play with. 
 
-I created this game because I wanted to learn more about JavaScript and how to use it to create a game. I decided to create this memory card game because I have a few children that love Pokemon, so I can refresh my JS skills and they get a new game to play!. 
+I created this game because I wanted to learn more about JavaScript and how to use it to create a game. I decided to create this memory card game because I have a few children that love Pokémon, so I can refresh my JS skills, and they get a new game to play! 
 
-The game is created using HTML, CSS, and JavaScript. The game uses the Pokemon API to get the images and names of the Pokemon. The game uses CSS Grid to create the layout of the game. The game uses JavaScript to create the game logic. The game is hosted on GitHub pages.
+The game is created using HTML, CSS, and JavaScript. The game uses the Pokémon API to get the images and names of the Pokémon. The game uses CSS Grid to create the layout of the game. The game uses JavaScript to create the game logic. The game is hosted on GitHub pages.
 
-[Software Demo Video](http://youtube.link.goes.here)
-[Try it out](https://sahil-rajput.github.io/JavaScript-Grid-Layout/)
+
+- [Software Demo Video](https://cdnapisec.kaltura.com/index.php/extwidget/preview/partner_id/1157612/uiconf_id/42438192/entry_id/1_c6erpibk/embed/dynamic)
+- [Click HERE to Play the Game!](https://jeremy-diamond.github.io/Pokemon_Matching_Game/)
 
 # Development Environment
 
@@ -35,6 +36,7 @@ Libraries used were anime.js and the Pokemon API.
 
 # Future Work
 - Add a timer to the game.
+- Add ability for custom number of cards
 - Hide score counter until board is generated
 - Replace a pokemon that has a missing image with a different pokemon. The API is pretty good, but some images are missing.
 - speed up card transitin animation so the game plays faster
